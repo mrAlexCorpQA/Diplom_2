@@ -25,7 +25,7 @@ public class AuthorizationTest {
     @After
     public void deleteCreatedUserAfterTest() {
         if (userAccessTokenFromResponse != null) {
-            Response deleteUserResponse = userTest.deleteUserByAcessToken(userAccessTokenFromResponse);
+            Response deleteUserResponse = userTest.deleteUserByAccessToken(userAccessTokenFromResponse);
             deleteUserResponse.then().assertThat().body("success", equalTo(true)).and().statusCode(202);
         }
     }
