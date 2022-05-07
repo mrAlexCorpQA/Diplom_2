@@ -38,8 +38,8 @@ public class AuthorizationTest {
         Response newUserResponse = userTest.createNewUserAPIRequest(userTest.createFullUserRandomTestRegData());
         newUserResponse.then().assertThat().body("success", equalTo(true));
         userAccessTokenFromResponse = newUserResponse.then().extract().path("accessToken");
-        Response CourierIdResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createFullUserAuthorizationData(userTest.userPartMailAdress, userTest.userPassword));
-        CourierIdResponse.then().assertThat().body("success", equalTo(true))
+        Response authResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createFullUserAuthorizationData(userTest.userPartMailAdress, userTest.userPassword));
+        authResponse.then().assertThat().body("success", equalTo(true))
                 .and().statusCode(200);
     }
 
@@ -50,8 +50,8 @@ public class AuthorizationTest {
     public void userAutorizationWithoutEmailAPITest() {
         Response newUserResponse = userTest.createNewUserAPIRequest(userTest.createFullUserRandomTestRegData());
         newUserResponse.then().assertThat().body("success", equalTo(true));
-        Response UserResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createUserAuthorizationDataWithoutEmail(userTest.userPassword));
-        UserResponse.then().assertThat().body("success", equalTo(false))
+        Response authWithoutEmailResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createUserAuthorizationDataWithoutEmail(userTest.userPassword));
+        authWithoutEmailResponse.then().assertThat().body("success", equalTo(false))
                 .and().statusCode(401);
     }
 
@@ -62,8 +62,8 @@ public class AuthorizationTest {
     public void userAutorizationWithoutPasswordAPITest() {
         Response newUserResponse = userTest.createNewUserAPIRequest(userTest.createFullUserRandomTestRegData());
         newUserResponse.then().assertThat().body("success", equalTo(true));
-        Response UserResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createUserAuthorizationDataWithoutPassword(userTest.userPartMailAdress));
-        UserResponse.then().assertThat().body("success", equalTo(false))
+        Response authWithoutPasswordResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createUserAuthorizationDataWithoutPassword(userTest.userPartMailAdress));
+        authWithoutPasswordResponse.then().assertThat().body("success", equalTo(false))
                 .and().statusCode(401);
     }
 
@@ -74,8 +74,8 @@ public class AuthorizationTest {
     public void userAutorizationWithIncorrectEmailAPITest() {
         Response newUserResponse = userTest.createNewUserAPIRequest(userTest.createFullUserRandomTestRegData());
         newUserResponse.then().assertThat().body("success", equalTo(true));
-        Response UserResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createFullUserAuthorizationData("UncorrectEMail", userTest.userPassword));
-        UserResponse.then().assertThat().body("success", equalTo(false))
+        Response uncorrectEmailAuthResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createFullUserAuthorizationData("UncorrectEMail", userTest.userPassword));
+        uncorrectEmailAuthResponse.then().assertThat().body("success", equalTo(false))
                 .and().statusCode(401);
     }
 
@@ -86,8 +86,8 @@ public class AuthorizationTest {
     public void userAutorizationWithIncorrectPasswordAPITest() {
         Response newUserResponse = userTest.createNewUserAPIRequest(userTest.createFullUserRandomTestRegData());
         newUserResponse.then().assertThat().body("success", equalTo(true));
-        Response UserResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createFullUserAuthorizationData(userTest.userPartMailAdress, "UncorrectPassword"));
-        UserResponse.then().assertThat().body("success", equalTo(false))
+        Response uncorrectPasswordResponse = authorizationTest.createUserAuthorizationAPIRequest(authorizationTest.createFullUserAuthorizationData(userTest.userPartMailAdress, "UncorrectPassword"));
+        uncorrectPasswordResponse.then().assertThat().body("success", equalTo(false))
                 .and().statusCode(401);
     }
 
